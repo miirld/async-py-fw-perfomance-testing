@@ -1,0 +1,42 @@
+services:
+  fastapi:
+    build: ./fastapi
+    container_name: fastapi-benchmark
+    ports:
+      - "8000:8000"
+    cpus: "1.0"
+    mem_limit: 512m
+
+  litestar:
+    build: ./litestar
+    container_name: litestar-benchmark
+    ports:
+      - "8000:8000"
+    cpus: "1.0"
+    mem_limit: 512m
+
+  aiohttp:
+    build: ./aiohttp
+    container_name: aiohttp-benchmark
+    ports:
+      - "8000:8000"
+    cpus: "1.0"
+    mem_limit: 512m
+
+  tornado:
+    build: ./tornado
+    container_name: tornado-benchmark
+    ports:
+      - "8000:8000"
+    cpus: "1.0"
+    mem_limit: 512m
+
+  sanic:
+    build: ./sanic
+    container_name: sanic-benchmark
+    ports:
+      - "8000:8000"
+    cpus: "1.0"
+    mem_limit: 512m
+
+    
