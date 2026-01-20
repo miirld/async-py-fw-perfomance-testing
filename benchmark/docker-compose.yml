@@ -3,9 +3,9 @@ services:
     build: ../fastapi
     container_name: fastapi-benchmark
     cpuset: "5"
-    mem_limit: 512m
-    mem_reservation: 512m
-    memswap_limit: 512m
+    mem_limit: 1g
+    mem_reservation: 1g
+    memswap_limit: 1g
     networks: [benchmark-net]
 
   litestar:
