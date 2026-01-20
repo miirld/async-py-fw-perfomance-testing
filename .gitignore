@@ -224,3 +224,4 @@ litestar/litestar-venv
 aiohttp/aiohttp-venv
 sanic/sanic-venv
 tornado/tornado-venv
+benchmark/results

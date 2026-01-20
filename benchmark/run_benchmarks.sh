@@ -1,0 +1,37 @@
+TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+RUN_DIR="./results/run_${TIMESTAMP}"
+
+SERVICES=("fastapi" "tornado" "sanic" "aiohttp" "litestar")
+TEST_TYPES=("warmup" "get-cpu" "get-io")
+
+for SVC in "${SERVICES[@]}"; do
+    echo ">>> Тестируем $SVC..."
+    docker compose up -d $SVC
+    sleep 30 
+    mkdir -p "$RUN_DIR/$SVC"
+
+    for TEST in "${TEST_TYPES[@]}"; do
+        echo "  > Запуск теста: $TEST"
+        TEST_DIR="$RUN_DIR/$SVC/$TEST"
+        mkdir -p "$TEST_DIR/report"
+        chmod -R 777 "$TEST_DIR"
+        docker run --name jmeter-test --rm \
+          --network shared-benchmark-net \
+          --cpuset-cpus="6-9" \
+          --memory="4g" \
+          --memory-reservation="4g" \
+          --memory-swap="4g" \
+          -e _JAVA_OPTIONS="-Xms3g -Xmx3g -XX:ActiveProcessorCount=4 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1 -XX:+UseG1GC" \
+          -v $(pwd):/tests \
+          justb4/jmeter -n \
+          -t "/tests/${TEST}.jmx" \
+          -Jtarget_host="${SVC}-benchmark" \
+          -l "/tests/$TEST_DIR/results.jtl" \
+          -e -o "/tests/$TEST_DIR/report"
+        sleep 15
+    done
+
+    docker compose stop $SVC
+    docker compose rm -f $SVC
+    sleep 15
+done

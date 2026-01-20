@@ -1,0 +1,35 @@
+services:
+  fastapi: &base_config
+    build: ../fastapi
+    container_name: fastapi-benchmark
+    cpuset: "5"
+    mem_limit: 512m
+    mem_reservation: 512m
+    memswap_limit: 512m
+    networks: [benchmark-net]
+
+  litestar:
+    <<: *base_config
+    build: ../litestar
+    container_name: litestar-benchmark
+  
+  aiohttp:
+    <<: *base_config
+    build: ../aiohttp
+    container_name: aiohttp-benchmark
+
+  tornado:
+    <<: *base_config
+    build: ../tornado
+    container_name: tornado-benchmark
+
+  sanic:
+    <<: *base_config
+    build: ../sanic
+    container_name: sanic-benchmark
+
+
+networks:
+  benchmark-net:
+    name: shared-benchmark-net
+    driver: bridge
