@@ -15,6 +15,11 @@ for SVC in "${SERVICES[@]}"; do
         TEST_DIR="$RUN_DIR/$SVC/$TEST"
         mkdir -p "$TEST_DIR/report"
         chmod -R 777 "$TEST_DIR"
+
+        STATS_LOG="$TEST_DIR/resource_usage.log"
+        ./monitor.sh "${SVC}-benchmark" "$STATS_LOG" 5 &
+        MONITOR_PID=$!
+
         docker run --name jmeter-test --rm \
           --network shared-benchmark-net \
           --cpuset-cpus="6-9" \
@@ -28,6 +33,10 @@ for SVC in "${SERVICES[@]}"; do
           -Jtarget_host="${SVC}-benchmark" \
           -l "/tests/$TEST_DIR/results.jtl" \
           -e -o "/tests/$TEST_DIR/report"
+
+        kill $MONITOR_PID 2>/dev/null
+        ./analyzer.sh "$STATS_LOG" "$TEST_DIR/resource_summary.txt"
+
         sleep 15
     done
 
