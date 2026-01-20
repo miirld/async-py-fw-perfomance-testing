@@ -34,5 +34,7 @@ def make_app() -> tornado.web.Application:
 
 if __name__ == "__main__":
     app = make_app()
-    app.listen(PORT, address=HOST)
+    server = tornado.httpserver.HTTPServer(app)
+    server.bind(PORT, address=HOST)
+    server.start(1)
     tornado.ioloop.IOLoop.current().start()
