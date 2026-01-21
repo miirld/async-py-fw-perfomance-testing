@@ -32,9 +32,13 @@ for SVC in "${SERVICES[@]}"; do
           -t "/tests/${TEST}.jmx" \
           -Jtarget_host="${SVC}-benchmark" \
           -l "/tests/$TEST_DIR/results.jtl" \
-          -e -o "/tests/$TEST_DIR/report"
 
         kill $MONITOR_PID 2>/dev/null
+
+        docker run --name jmeter-reporter --rm \
+          -v $(pwd):/tests \
+          justb4/jmeter -g "/tests/$TEST_DIR/results.jtl" -o "/tests/$TEST_DIR/report"
+
         ./analyzer.sh "$STATS_LOG" "$TEST_DIR/resource_summary.txt"
 
         sleep 15

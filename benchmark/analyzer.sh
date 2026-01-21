@@ -1,5 +1,5 @@
 # ./analyzer.sh <log_file> <summary_file>
-CLEAN_DATA=$(sed 's/%//g; s/\/.*//g; s/iB//g' "$1")
+CLEAN_DATA=$(head -n -1 "$1" | sed 's/%//g; s/\/.*//g; s/iB//g')
 
 read avg_cpu max_cpu max_mem avg_mem <<< $(echo "$CLEAN_DATA" | awk -F';' 'NR > 1 {
     cpu = $2; 
