@@ -37,7 +37,8 @@ for SVC in "${SERVICES[@]}"; do
 
         docker run --name jmeter-reporter --rm \
           -v $(pwd):/tests \
-          alpine/jmeter:5.6.3 -g "/tests/$TEST_DIR/results.jtl" -o "/tests/$TEST_DIR/report"
+          alpine/jmeter:5.6.3 -g "/tests/$TEST_DIR/results.jtl" -o "/tests/$TEST_DIR/report" \
+          -Jaggregate_rpt_pct1=75
 
         ./analyzer.sh "$STATS_LOG" "$TEST_DIR/resource_summary.txt"
 
