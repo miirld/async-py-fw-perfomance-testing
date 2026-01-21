@@ -17,7 +17,7 @@ for SVC in "${SERVICES[@]}"; do
         chmod -R 777 "$TEST_DIR"
 
         STATS_LOG="$TEST_DIR/resource_usage.log"
-        ./monitor.sh "${SVC}-benchmark" "$STATS_LOG" 5 &
+        ./monitor.sh "${SVC}-benchmark" "$STATS_LOG" 3 &
         MONITOR_PID=$!
 
         docker run --name jmeter-test --rm \
