@@ -2,7 +2,7 @@ TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 RUN_DIR="./results/run_${TIMESTAMP}"
 
 SERVICES=("fastapi" "tornado" "sanic" "aiohttp" "litestar")
-TEST_TYPES=("warmup" "get-cpu" "get-io")
+TEST_TYPES=("warmup" "get-cpu" "get-io_work" "get-io_stress" "get-io_soak")
 
 for SVC in "${SERVICES[@]}"; do
     echo ">>> Тестируем $SVC..."
