@@ -28,7 +28,7 @@ for SVC in "${SERVICES[@]}"; do
           --memory-swap="4g" \
           -e _JAVA_OPTIONS="-Xms3g -Xmx3g -XX:ActiveProcessorCount=4 -XX:ParallelGCThreads=2 -XX:ConcGCThreads=1 -XX:+UseG1GC" \
           -v $(pwd):/tests \
-          justb4/jmeter -n \
+          alpine/jmeter:5.6.3 -n \
           -t "/tests/${TEST}.jmx" \
           -Jtarget_host="${SVC}-benchmark" \
           -l "/tests/$TEST_DIR/results.jtl" \
@@ -37,7 +37,7 @@ for SVC in "${SERVICES[@]}"; do
 
         docker run --name jmeter-reporter --rm \
           -v $(pwd):/tests \
-          justb4/jmeter -g "/tests/$TEST_DIR/results.jtl" -o "/tests/$TEST_DIR/report"
+          alpine/jmeter:5.6.3 -g "/tests/$TEST_DIR/results.jtl" -o "/tests/$TEST_DIR/report"
 
         ./analyzer.sh "$STATS_LOG" "$TEST_DIR/resource_summary.txt"
 
