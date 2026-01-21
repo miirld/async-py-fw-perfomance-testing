@@ -6,7 +6,7 @@ TEST_TYPES=("warmup" "get-cpu" "get-io_work" "get-io_stress" "get-io_soak")
 
 for SVC in "${SERVICES[@]}"; do
     echo ">>> Тестируем $SVC..."
-    docker compose up -d $SVC
+    docker compose up -d --build $SVC
     sleep 30 
     mkdir -p "$RUN_DIR/$SVC"
 
