@@ -9,8 +9,8 @@ asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 
 app = Sanic("sanic-benchmark")
 
-@app.get("/get-cpu")
-async def get_cpu(request):
+@app.get("/get-baseline")
+async def get_baseline(request):
     return json({"status": "ok"})
 
 @app.get("/get-io")

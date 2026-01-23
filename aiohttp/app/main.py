@@ -2,7 +2,7 @@ import asyncio
 import random
 from aiohttp import web
 
-async def get_cpu(request):
+async def get_baseline(request):
     return web.json_response({"status": "ok"})
 
 async def get_io(request):
@@ -12,7 +12,7 @@ async def get_io(request):
 def create_app():
     app = web.Application()
     app.add_routes([
-        web.get('/get-cpu', get_cpu),
+        web.get('/get-baseline', get_baseline),
         web.get('/get-io', get_io),
     ])
     return app

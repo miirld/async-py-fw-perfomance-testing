@@ -4,8 +4,8 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
-@app.get("/get-cpu")
-async def get_cpu():
+@app.get("/get-baseline")
+async def get_baseline():
     return {"status": "ok"}
 
 @app.get("/get-io")

@@ -12,7 +12,7 @@ HOST = os.getenv("HOST", "0.0.0.0")
 PORT = int(os.getenv("PORT", "8000"))
 
 
-class GetCPUHandler(tornado.web.RequestHandler):
+class GetBaselineHandler(tornado.web.RequestHandler):
     async def get(self):
         self.write({"status": "ok"})
 
@@ -26,7 +26,7 @@ class GetIOHandler(tornado.web.RequestHandler):
 def make_app() -> tornado.web.Application:
     return tornado.web.Application(
         [
-            (r"/get-cpu", GetCPUHandler),
+            (r"/get-baseline", GetBaselineHandler),
             (r"/get-io", GetIOHandler),
         ]
     )
