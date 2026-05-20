@@ -29,4 +29,16 @@ services:
     ports:
       - "8000:8000"
 
+  fastapi-standard:
+    build: ./fastapi-standard
+    container_name: fastapi-standard-benchmark
+    ports:
+      - "8000:8000"
+
+  litestar-standard:
+    build: ./litestar-standard
+    container_name: litestar-standard-benchmark
+    ports:
+      - "8000:8000"
+
 

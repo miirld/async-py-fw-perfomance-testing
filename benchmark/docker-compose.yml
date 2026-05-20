@@ -28,6 +28,15 @@ services:
     build: ../sanic
     container_name: sanic-benchmark
 
+  fastapi-standard:
+    <<: *base_config
+    build: ../fastapi-standard
+    container_name: fastapi-standard-benchmark
+
+  litestar-standard:
+    <<: *base_config
+    build: ../litestar-standard
+    container_name: litestar-standard-benchmark
 
 networks:
   benchmark-net:
