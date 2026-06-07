@@ -1,22 +1,12 @@
 services:
-  fastapi: &base_config
-    build: ../fastapi
-    container_name: fastapi-benchmark
+  aiohttp: &base_config
+    build: ../aiohttp
+    container_name: aiohttp-benchmark
     cpuset: "5"
     mem_limit: 1g
     mem_reservation: 1g
     memswap_limit: 1g
     networks: [benchmark-net]
-
-  litestar:
-    <<: *base_config
-    build: ../litestar
-    container_name: litestar-benchmark
-  
-  aiohttp:
-    <<: *base_config
-    build: ../aiohttp
-    container_name: aiohttp-benchmark
 
   tornado:
     <<: *base_config
