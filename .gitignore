@@ -217,15 +217,13 @@ __marimo__/
 
 
 #Custom
-.python-version
-
-fastapi/fastapi-venv
 fastapi-standard/fastapi-standard-venv
-litestar/litestar-venv
 litestar-standard/litestar-standard-venv
 aiohttp/aiohttp-venv
 sanic/sanic-venv
 tornado/tornado-venv
+
 benchmark/results
 
+.python-version
 .vscode
